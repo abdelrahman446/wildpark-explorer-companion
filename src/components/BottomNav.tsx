@@ -23,8 +23,10 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary"
-      className="absolute bottom-0 left-0 right-0 z-30 px-3 pb-3 pt-2"
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 z-30 w-full max-w-[440px] px-3 pb-3 pt-2 md:absolute md:left-0 md:right-0 md:translate-x-0"
+      style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
     >
+
       <div
         className="mx-auto flex items-end justify-between rounded-[26px] bg-white/95 backdrop-blur-md px-2 py-2 shadow-[0_10px_40px_-15px_rgba(22,45,32,0.35)] border border-line"
       >
