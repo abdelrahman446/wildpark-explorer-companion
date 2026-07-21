@@ -91,7 +91,7 @@ function Home() {
 
       {/* Featured animal */}
       <section className="px-5 mt-6">
-        <SectionTitle title="Featured today" link="See journal" to="/journal" />
+        <SectionTitle title="Featured mascot" link="See badges" to="/journal" />
         <div className="mt-3 card-soft overflow-hidden">
           <div className="relative h-44">
             <img src={deer} alt="Red deer stag" className="absolute inset-0 h-full w-full object-cover" loading="lazy" width={1200} height={1200} />
