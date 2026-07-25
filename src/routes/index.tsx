@@ -52,7 +52,7 @@ function Home() {
           </div>
 
           <p className="mt-6 max-w-[300px] text-[15px] leading-relaxed text-white/90">
-            The forest is quiet this morning. Follow the deer trail — three animals wait to be discovered.
+            The Wild park in schorfheide is quiet this morning. All the Animals are waiting for you expand.
           </p>
         </div>
       </section>
@@ -73,7 +73,7 @@ function Home() {
           />
           <div className="flex-1 min-w-0">
             <p className="text-[11px] uppercase tracking-widest text-wood font-medium">Continue adventure</p>
-            <h3 className="mt-0.5 font-display text-lg text-forest truncate">The Wolf Trail</h3>
+            <h3 className="mt-0.5 font-display text-lg text-forest truncate">The Wolf&nbsp;</h3>
             <p className="text-xs text-muted-foreground mt-0.5">1.2 km left · 3 stations to discover</p>
           </div>
           <Link to="/explore" aria-label="Resume trail" className="grid h-10 w-10 place-items-center rounded-full bg-forest text-white">

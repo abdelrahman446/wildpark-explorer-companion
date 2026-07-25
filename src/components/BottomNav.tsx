@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, Map, ScanLine, Trophy, User } from "lucide-react";
 
 type Tab = {
-  to: "/" | "/explore" | "/scan" | "/challenges" | "/profile";
+  to: "/" | "/explore" | "/scan" | "/journal" | "/profile";
   label: string;
   icon: typeof Home;
   primary?: boolean;
@@ -12,7 +12,7 @@ const tabs: Tab[] = [
   { to: "/", label: "Home", icon: Home },
   { to: "/explore", label: "Explore", icon: Map },
   { to: "/scan", label: "Scan", icon: ScanLine, primary: true },
-  { to: "/challenges", label: "Challenges", icon: Trophy },
+  { to: "/journal", label: "Badges", icon: Trophy },
   { to: "/profile", label: "Profile", icon: User },
 ];
 
