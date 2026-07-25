@@ -9,21 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ScanRouteImport } from './routes/scan'
-import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ScannerRouteImport } from './routes/scanner'
+import { Route as MoreRouteImport } from './routes/more'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as JournalRouteImport } from './routes/journal'
-import { Route as ExploreRouteImport } from './routes/explore'
-import { Route as ChallengesRouteImport } from './routes/challenges'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JournalIdRouteImport } from './routes/journal.$id'
 
-const ScanRoute = ScanRouteImport.update({
-  id: '/scan',
-  path: '/scan',
+const ScannerRoute = ScannerRouteImport.update({
+  id: '/scanner',
+  path: '/scanner',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
+const MoreRoute = MoreRouteImport.update({
+  id: '/more',
+  path: '/more',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalRoute = JournalRouteImport.update({
@@ -31,91 +36,86 @@ const JournalRoute = JournalRouteImport.update({
   path: '/journal',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExploreRoute = ExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChallengesRoute = ChallengesRouteImport.update({
-  id: '/challenges',
-  path: '/challenges',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalIdRoute = JournalIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => JournalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/challenges': typeof ChallengesRoute
-  '/explore': typeof ExploreRoute
-  '/journal': typeof JournalRoute
-  '/profile': typeof ProfileRoute
-  '/scan': typeof ScanRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/map': typeof MapRoute
+  '/more': typeof MoreRoute
+  '/scanner': typeof ScannerRoute
+  '/journal/$id': typeof JournalIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/challenges': typeof ChallengesRoute
-  '/explore': typeof ExploreRoute
-  '/journal': typeof JournalRoute
-  '/profile': typeof ProfileRoute
-  '/scan': typeof ScanRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/map': typeof MapRoute
+  '/more': typeof MoreRoute
+  '/scanner': typeof ScannerRoute
+  '/journal/$id': typeof JournalIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/challenges': typeof ChallengesRoute
-  '/explore': typeof ExploreRoute
-  '/journal': typeof JournalRoute
-  '/profile': typeof ProfileRoute
-  '/scan': typeof ScanRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/map': typeof MapRoute
+  '/more': typeof MoreRoute
+  '/scanner': typeof ScannerRoute
+  '/journal/$id': typeof JournalIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/challenges'
-    | '/explore'
-    | '/journal'
-    | '/profile'
-    | '/scan'
+  fullPaths: '/' | '/journal' | '/map' | '/more' | '/scanner' | '/journal/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/challenges' | '/explore' | '/journal' | '/profile' | '/scan'
+  to: '/' | '/journal' | '/map' | '/more' | '/scanner' | '/journal/$id'
   id:
     | '__root__'
     | '/'
-    | '/challenges'
-    | '/explore'
     | '/journal'
-    | '/profile'
-    | '/scan'
+    | '/map'
+    | '/more'
+    | '/scanner'
+    | '/journal/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChallengesRoute: typeof ChallengesRoute
-  ExploreRoute: typeof ExploreRoute
-  JournalRoute: typeof JournalRoute
-  ProfileRoute: typeof ProfileRoute
-  ScanRoute: typeof ScanRoute
+  JournalRoute: typeof JournalRouteWithChildren
+  MapRoute: typeof MapRoute
+  MoreRoute: typeof MoreRoute
+  ScannerRoute: typeof ScannerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/scan': {
-      id: '/scan'
-      path: '/scan'
-      fullPath: '/scan'
-      preLoaderRoute: typeof ScanRouteImport
+    '/scanner': {
+      id: '/scanner'
+      path: '/scanner'
+      fullPath: '/scanner'
+      preLoaderRoute: typeof ScannerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
+    '/more': {
+      id: '/more'
+      path: '/more'
+      fullPath: '/more'
+      preLoaderRoute: typeof MoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal': {
@@ -125,20 +125,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/explore': {
-      id: '/explore'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof ExploreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/challenges': {
-      id: '/challenges'
-      path: '/challenges'
-      fullPath: '/challenges'
-      preLoaderRoute: typeof ChallengesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -146,16 +132,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal/$id': {
+      id: '/journal/$id'
+      path: '/$id'
+      fullPath: '/journal/$id'
+      preLoaderRoute: typeof JournalIdRouteImport
+      parentRoute: typeof JournalRoute
+    }
   }
 }
 
+interface JournalRouteChildren {
+  JournalIdRoute: typeof JournalIdRoute
+}
+
+const JournalRouteChildren: JournalRouteChildren = {
+  JournalIdRoute: JournalIdRoute,
+}
+
+const JournalRouteWithChildren =
+  JournalRoute._addFileChildren(JournalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChallengesRoute: ChallengesRoute,
-  ExploreRoute: ExploreRoute,
-  JournalRoute: JournalRoute,
-  ProfileRoute: ProfileRoute,
-  ScanRoute: ScanRoute,
+  JournalRoute: JournalRouteWithChildren,
+  MapRoute: MapRoute,
+  MoreRoute: MoreRoute,
+  ScannerRoute: ScannerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
