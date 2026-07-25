@@ -127,7 +127,7 @@ function JournalEntry() {
           Interesting facts
         </p>
         <ol className="mt-4 space-y-4">
-          {animal.facts.map((fact, i) => (
+          {animal.facts.map((fact: string, i: number) => (
             <li key={i} className="flex gap-4">
               <span className="font-display text-[18px] text-orange leading-none w-6 flex-shrink-0">
                 {String(i + 1).padStart(2, "0")}
@@ -157,7 +157,7 @@ function JournalEntry() {
             Related species
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {animal.related.map((r) => (
+            {animal.related.map((r: string) => (
               <Chip key={r} tone="outline">
                 {r}
               </Chip>
