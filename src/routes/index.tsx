@@ -1,245 +1,218 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, Cloud, Footprints, PlayCircle, Sparkles, ArrowRight, MapPin, Calendar } from "lucide-react";
+import { ArrowUpRight, Clock, MapPin } from "lucide-react";
+import { animals, feedingSessions, parkNotices, recommendedTrail } from "@/lib/park-data";
+import { Chip, ScreenHeader, SectionLabel, StatusDot } from "@/components/park/ui";
 import forestHero from "@/assets/forest-hero.jpg";
-import mascot from "@/assets/mascot-fox.png";
-import deer from "@/assets/animal-deer.jpg";
-import { Chip, ProgressRing } from "@/components/park/ui";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Wildpark Schorfheide — Your forest today" },
-      { name: "description", content: "See today's weather, your current challenge, featured animal, park events and nearby live cameras." },
+      { title: "Discover — Wildpark Schorfheide" },
+      {
+        name: "description",
+        content:
+          "Today at Wildpark Schorfheide — featured animals, park notices, feeding sessions and the recommended trail.",
+      },
+      { property: "og:title", content: "Wildpark Schorfheide — Discover today" },
+      {
+        property: "og:description",
+        content: "A calm digital field guide for Wildpark Schorfheide.",
+      },
     ],
   }),
-  component: Home,
+  component: Discover,
 });
 
-function Home() {
+function Discover() {
+  const featured = animals[0];
+
   return (
-    <div className="text-forest">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-b-[36px]">
-        <img
-          src={forestHero}
-          alt="Misty pine forest at Wildpark Schorfheide"
-          className="absolute inset-0 h-full w-full object-cover"
-          width={1280}
-          height={960}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-forest/40 via-forest/25 to-forest/85" />
-        <div className="relative px-5 pt-10 pb-8 text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.2em] text-white/70">Guten Morgen</p>
-              <h1 className="mt-1 font-display text-3xl">Hello, Lina</h1>
-            </div>
-            <button aria-label="Notifications" className="grid h-11 w-11 place-items-center rounded-full bg-white/15 backdrop-blur">
-              <Bell className="h-5 w-5" strokeWidth={1.6} />
-              <span className="absolute mt-[-14px] ml-4 h-2 w-2 rounded-full bg-orange" />
-            </button>
-          </div>
+    <div className="pb-6">
+      <ScreenHeader
+        eyebrow="Wildpark Schorfheide"
+        title="Today in the forest"
+        subtitle="Three exhibitions are open. The forest is quiet — perfect for observation."
+      />
 
-          <div className="mt-8 flex items-end gap-3">
-            <div className="flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs">
-              <Cloud className="h-4 w-4" strokeWidth={1.6} />
-              14° · Foggy woods
+      {/* Featured animal — cinematic hero */}
+      <section className="px-6 mt-4">
+        <Link
+          to="/journal/$id"
+          params={{ id: featured.id }}
+          className="group block relative overflow-hidden rounded-[28px] bg-forest text-white"
+        >
+          <div className="relative aspect-[4/5]">
+            <img
+              src={featured.image}
+              alt={featured.name}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.02]"
+              width={1200}
+              height={1500}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/40 to-transparent" />
+            <div className="absolute top-5 left-5 right-5 flex items-start justify-between">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-white/70">
+                Featured today
+              </p>
+              <ArrowUpRight className="h-4 w-4 text-white/70" strokeWidth={1.6} />
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs">
-              <MapPin className="h-4 w-4" strokeWidth={1.6} />
-              North Gate
+            <div className="absolute inset-x-6 bottom-6">
+              <p className="text-[11px] italic text-white/70">{featured.scientific}</p>
+              <h2 className="mt-1 font-display text-[34px] leading-none">
+                {featured.name}
+              </h2>
+              <p className="mt-3 text-[13px] leading-relaxed text-white/85 max-w-[300px]">
+                {featured.story.split(". ")[0]}.
+              </p>
             </div>
           </div>
+        </Link>
+      </section>
 
-          <p className="mt-6 max-w-[300px] text-[15px] leading-relaxed text-white/90">
-            The Wild park in schorfheide is quiet this morning. All the Animals are waiting for you expand.
-          </p>
+      {/* Park notices */}
+      <section className="mt-10">
+        <SectionLabel>Park notices</SectionLabel>
+        <div className="mt-3 px-6 space-y-3">
+          {parkNotices.map((n) => (
+            <article key={n.id} className="card-soft p-5">
+              <p className="text-[10px] uppercase tracking-[0.22em] text-wood font-medium">
+                {n.eyebrow}
+              </p>
+              <h3 className="mt-2 font-display text-[18px] text-forest leading-snug">
+                {n.title}
+              </h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-forest/65">
+                {n.body}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Continue adventure */}
-      <section className="px-5 -mt-8 relative z-10">
-        <div className="card-soft p-4 flex items-center gap-4">
-          <ProgressRing
-            value={0.62}
-            size={68}
-            stroke={7}
-            label={
-              <div className="text-center">
-                <div className="font-display text-base text-forest leading-none">62%</div>
-                <div className="text-[9px] uppercase tracking-widest text-muted-foreground">Trail</div>
+      {/* Recommended trail */}
+      <section className="mt-10">
+        <SectionLabel>Recommended trail</SectionLabel>
+        <div className="mt-3 px-6">
+          <Link
+            to="/map"
+            className="block relative overflow-hidden rounded-[24px] border border-line bg-white"
+          >
+            <div className="relative h-40">
+              <img
+                src={forestHero}
+                alt="Forest trail through Schorfheide"
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-[20px] text-forest leading-tight">
+                {recommendedTrail.name}
+              </h3>
+              <p className="mt-1.5 text-[13px] text-forest/60 leading-relaxed">
+                {recommendedTrail.description}
+              </p>
+              <div className="mt-4 flex items-center gap-2">
+                <Chip tone="outline">
+                  <MapPin className="h-3 w-3" /> {recommendedTrail.distance}
+                </Chip>
+                <Chip tone="outline">
+                  <Clock className="h-3 w-3" /> {recommendedTrail.duration}
+                </Chip>
               </div>
-            }
-          />
-          <div className="flex-1 min-w-0">
-            <p className="text-[11px] uppercase tracking-widest text-wood font-medium">Continue adventure</p>
-            <h3 className="mt-0.5 font-display text-lg text-forest truncate">The Wolf&nbsp;</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">1.2 km left · 3 stations to discover</p>
-          </div>
-          <Link to="/explore" aria-label="Resume trail" className="grid h-10 w-10 place-items-center rounded-full bg-forest text-white">
-            <ArrowRight className="h-4 w-4" />
+            </div>
           </Link>
         </div>
       </section>
 
-      {/* Stats row */}
-      <section className="px-5 mt-4 grid grid-cols-3 gap-3">
-        <StatCard icon={<Footprints className="h-4 w-4" />} label="Steps" value="4,820" tone="forest" />
-        <StatCard label="Level" value="7" sub="Forest Explorer" tone="orange" />
-        <StatCard label="XP" value="1 240" sub="+80 today" tone="wood" />
-      </section>
-
-      {/* Featured animal */}
-      <section className="px-5 mt-6">
-        <SectionTitle title="Featured mascot" link="See badges" to="/journal" />
-        <div className="mt-3 card-soft overflow-hidden">
-          <div className="relative h-44">
-            <img src={deer} alt="Red deer stag" className="absolute inset-0 h-full w-full object-cover" loading="lazy" width={1200} height={1200} />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest/10 to-transparent" />
-            <div className="absolute left-4 top-4">
-              <Chip tone="burgundy">Educational</Chip>
-            </div>
-            <div className="absolute left-4 right-4 bottom-4 text-white">
-              <p className="text-[10px] uppercase tracking-widest opacity-80">Cervus elaphus</p>
-              <h3 className="font-display text-2xl">Red Deer</h3>
-              <p className="mt-1 text-xs opacity-90 max-w-[260px]">
-                Hear their bugle at dawn. Antlers regrow each spring — a slow forest miracle.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Seasonal campaign */}
-      <section className="px-5 mt-6">
-        <div className="rounded-[26px] p-5 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #6B2D3E 0%, #4B1E2B 100%)" }}>
-          <div className="flex items-start gap-4">
-            <div className="flex-1 text-white">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[10px] uppercase tracking-widest">
-                <Sparkles className="h-3 w-3" /> Autumn festival
+      {/* Educational highlights — animal thumbs */}
+      <section className="mt-10">
+        <SectionLabel>Current exhibitions</SectionLabel>
+        <div className="mt-3 pl-6 flex gap-3 overflow-x-auto no-scrollbar pr-4">
+          {animals.map((a) => (
+            <Link
+              key={a.id}
+              to="/journal/$id"
+              params={{ id: a.id }}
+              className="min-w-[64%] snap-start"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[22px]">
+                <img
+                  src={a.image}
+                  alt={a.name}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/10 to-transparent" />
+                <div className="absolute inset-x-4 bottom-4 text-white">
+                  <p className="text-[10px] italic opacity-75">{a.scientific}</p>
+                  <h3 className="font-display text-[20px] leading-tight">{a.name}</h3>
+                  <div className="mt-1.5">
+                    <StatusDotWhite label={a.status} />
+                  </div>
+                </div>
               </div>
-              <h3 className="mt-3 font-display text-xl leading-tight">Rutting season is here</h3>
-              <p className="mt-1 text-xs text-white/80 max-w-[210px]">
-                Six guided listening walks this week. Reserve your quiet hour.
-              </p>
-              <button className="mt-3 rounded-full bg-orange px-4 py-2 text-xs font-semibold text-white shadow-[0_8px_20px_-8px_rgba(201,122,42,0.7)]">
-                Reserve a spot
-              </button>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Upcoming feedings */}
+      <section className="mt-10">
+        <SectionLabel>Upcoming feeding sessions</SectionLabel>
+        <div className="mt-3 mx-6 rounded-[22px] border border-line bg-white overflow-hidden">
+          {feedingSessions.map((f, i) => (
+            <div
+              key={f.id}
+              className={`flex items-center gap-5 px-5 py-4 ${
+                i > 0 ? "border-t border-line" : ""
+              }`}
+            >
+              <div className="font-display text-[18px] text-forest w-14">{f.time}</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[14px] text-forest font-medium">{f.title}</p>
+                <p className="text-[12px] text-forest/55 mt-0.5">{f.place}</p>
+              </div>
             </div>
-            <img src={mascot} alt="Fox mascot" className="h-24 w-24 animate-leaf" loading="lazy" />
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Events */}
-      <section className="px-5 mt-6">
-        <SectionTitle title="Today at the park" link="See all" to="/explore" />
-        <div className="mt-3 space-y-2.5">
-          <EventRow time="11:00" title="Wolf feeding & talk" place="Wolf enclosure" tone="orange" />
-          <EventRow time="13:30" title="Deer whisperer walk" place="North trail" tone="forest" />
-          <EventRow time="16:00" title="Owls at dusk" place="Amphitheatre" tone="burgundy" />
-        </div>
-      </section>
-
-      {/* Live cameras */}
-      <section className="px-5 mt-6">
-        <SectionTitle title="Nearby live cameras" link="Watch all" to="/explore" />
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <CamCard image={deer} name="Deer meadow" activity="Grazing" />
-          <CamCard image={forestHero} name="North pond" activity="Quiet" />
-        </div>
-      </section>
-
-      {/* Mascot whisper */}
-      <section className="px-5 mt-6">
-        <div className="card-soft p-4 flex items-center gap-3 border border-line">
-          <img src={mascot} alt="Fox mascot" className="h-12 w-12" loading="lazy" />
-          <p className="text-sm text-forest/85 leading-snug">
-            <span className="font-medium text-forest">Fenn says:</span> Only 400 steps to your next badge. The wolf habitat is just around the pine bend.
+      {/* Field notes footer */}
+      <section className="mt-10 px-6">
+        <div className="rounded-[24px] bg-forest text-white p-6">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-white/60">
+            Your field journal
           </p>
+          <p className="mt-3 font-display text-[22px] leading-tight">
+            Two animals recorded. The bison meadow is still ahead.
+          </p>
+          <Link
+            to="/journal"
+            className="mt-4 inline-flex items-center gap-2 text-[13px] text-orange font-medium"
+          >
+            Open journal <ArrowUpRight className="h-4 w-4" strokeWidth={1.8} />
+          </Link>
         </div>
       </section>
+
+      {/* Ambient closing line */}
+      <p className="mt-8 px-6 text-center text-[11px] italic text-forest/45">
+        Look up more than you look down.
+      </p>
     </div>
   );
 }
 
-function SectionTitle({ title, link, to }: { title: string; link?: string; to?: string }) {
+function StatusDotWhite({ label }: { label: string }) {
   return (
-    <div className="flex items-baseline justify-between">
-      <h2 className="font-display text-lg text-forest">{title}</h2>
-      {link && to && (
-        <Link to={to} className="text-xs font-medium text-orange">
-          {link}
-        </Link>
-      )}
-    </div>
+    <span className="inline-flex items-center gap-1.5 text-[10px] text-white/85">
+      <span className="h-1 w-1 rounded-full bg-orange" />
+      {label}
+    </span>
   );
 }
 
-function StatCard({
-  icon,
-  label,
-  value,
-  sub,
-  tone,
-}: {
-  icon?: React.ReactNode;
-  label: string;
-  value: string;
-  sub?: string;
-  tone: "forest" | "orange" | "wood";
-}) {
-  const tones = {
-    forest: "text-forest",
-    orange: "text-orange",
-    wood: "text-wood",
-  } as const;
-  return (
-    <div className="card-soft p-3">
-      <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-muted-foreground">
-        {icon}
-        {label}
-      </div>
-      <div className={`mt-1 font-display text-xl ${tones[tone]}`}>{value}</div>
-      {sub && <div className="text-[10px] text-muted-foreground mt-0.5">{sub}</div>}
-    </div>
-  );
-}
-
-function EventRow({ time, title, place, tone }: { time: string; title: string; place: string; tone: "orange" | "forest" | "burgundy" }) {
-  const dot = { orange: "bg-orange", forest: "bg-forest", burgundy: "bg-burgundy" }[tone];
-  return (
-    <div className="flex items-center gap-3 rounded-2xl bg-white p-3 border border-line/60">
-      <div className="flex flex-col items-center w-12">
-        <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
-        <span className="mt-1 font-display text-sm text-forest">{time}</span>
-      </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="text-sm font-medium text-forest truncate">{title}</h4>
-        <p className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5">
-          <Calendar className="h-3 w-3" /> {place}
-        </p>
-      </div>
-      <button className="rounded-full border border-line px-3 py-1 text-[11px] text-forest">Remind</button>
-    </div>
-  );
-}
-
-function CamCard({ image, name, activity }: { image: string; name: string; activity: string }) {
-  return (
-    <button className="relative aspect-[4/5] overflow-hidden rounded-[22px] text-left">
-      <img src={image} alt={name} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest/10 to-transparent" />
-      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-alert/95 px-2 py-0.5 text-[10px] font-semibold text-white">
-        <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" /> LIVE
-      </div>
-      <div className="absolute inset-x-3 bottom-3 text-white">
-        <div className="flex items-center justify-between">
-          <p className="font-display text-sm">{name}</p>
-          <PlayCircle className="h-5 w-5" strokeWidth={1.6} />
-        </div>
-        <p className="text-[10px] opacity-80">{activity}</p>
-      </div>
-    </button>
-  );
-}
+// re-export for typescript happiness (unused)
+void StatusDot;
