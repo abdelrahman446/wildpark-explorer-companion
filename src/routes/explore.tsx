@@ -132,9 +132,9 @@ function MapArt() {
       </div>
 
       {/* pins */}
-      <MapPin xPct={20} yPct={35} label="Wolf" tone="forest" />
-      <MapPin xPct={62} yPct={28} label="Deer" tone="orange" />
-      <MapPin xPct={48} yPct={65} label="Bison" tone="burgundy" />
+      <MapPin xPct={20} yPct={35} label="Wolf" tone="forest" mascot />
+      <MapPin xPct={62} yPct={28} label="Deer" tone="orange" mascot />
+      <MapPin xPct={48} yPct={65} label="Bison" tone="burgundy" mascot />
       <MapPin xPct={78} yPct={78} label="Café" tone="wood" />
 
       {/* you are here */}
@@ -151,13 +151,20 @@ function MapArt() {
   );
 }
 
-function MapPin({ xPct, yPct, label, tone }: { xPct: number; yPct: number; label: string; tone: "forest" | "orange" | "burgundy" | "wood" }) {
+function MapPin({ xPct, yPct, label, tone, mascot }: { xPct: number; yPct: number; label: string; tone: "forest" | "orange" | "burgundy" | "wood"; mascot?: boolean }) {
   const bg = { forest: "bg-forest", orange: "bg-orange", burgundy: "bg-burgundy", wood: "bg-wood" }[tone];
   return (
     <button className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: xPct + "%", top: yPct + "%" }}>
-      <span className={`grid h-9 w-9 place-items-center rounded-full ${bg} text-white shadow-[0_6px_18px_-4px_rgba(22,45,32,0.4)] text-[10px] font-semibold`}>
-        {label.slice(0, 2)}
-      </span>
+      <div className="relative">
+        {mascot && (
+          <div className="absolute -top-3 -right-3 h-5 w-5 rounded-full bg-white p-1 shadow-sm ring-1 ring-forest/10">
+            <img src="/src/assets/mascot-fox.png" alt="Mascot" className="h-full w-full object-contain" />
+          </div>
+        )}
+        <span className={`grid h-9 w-9 place-items-center rounded-full ${bg} text-white shadow-[0_6px_18px_-4px_rgba(22,45,32,0.4)] text-[10px] font-semibold`}>
+          {label.slice(0, 2)}
+        </span>
+      </div>
     </button>
   );
 }
