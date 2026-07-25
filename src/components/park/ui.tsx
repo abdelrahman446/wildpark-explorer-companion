@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { ConservationStatus } from "@/lib/park-data";
 
 export function ScreenHeader({
   eyebrow,
@@ -12,18 +13,18 @@ export function ScreenHeader({
   right?: ReactNode;
 }) {
   return (
-    <header className="flex items-start justify-between px-5 pt-8 pb-4">
-      <div>
+    <header className="flex items-start justify-between px-6 pt-10 pb-3">
+      <div className="min-w-0">
         {eyebrow && (
-          <p className="text-[11px] uppercase tracking-[0.18em] text-wood font-medium">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-wood font-medium">
             {eyebrow}
           </p>
         )}
-        <h1 className="mt-1 font-display text-[28px] leading-tight text-forest">
+        <h1 className="mt-2 font-display text-[30px] leading-[1.05] text-forest">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-1 text-sm text-muted-foreground max-w-[280px]">
+          <p className="mt-2 text-[13px] leading-relaxed text-forest/60 max-w-[300px]">
             {subtitle}
           </p>
         )}
@@ -33,60 +34,51 @@ export function ScreenHeader({
   );
 }
 
+export function SectionLabel({
+  children,
+  action,
+}: {
+  children: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex items-baseline justify-between px-6">
+      <h2 className="text-[10px] uppercase tracking-[0.24em] text-wood font-medium">
+        {children}
+      </h2>
+      {action}
+    </div>
+  );
+}
+
 export function Chip({
   children,
   tone = "forest",
 }: {
   children: ReactNode;
-  tone?: "forest" | "orange" | "burgundy" | "wood" | "muted";
+  tone?: "forest" | "orange" | "wood" | "outline";
 }) {
   const tones: Record<string, string> = {
-    forest: "bg-forest/10 text-forest",
-    orange: "bg-orange/15 text-orange",
-    burgundy: "bg-burgundy/12 text-burgundy",
-    wood: "bg-wood/12 text-wood",
-    muted: "bg-cream text-muted-foreground",
+    forest: "bg-forest/8 text-forest",
+    orange: "bg-orange/12 text-orange",
+    wood: "bg-wood/10 text-wood",
+    outline: "border border-line text-forest/70 bg-white",
   };
   return <span className={`chip ${tones[tone]}`}>{children}</span>;
 }
 
-export function ProgressRing({
-  value,
-  size = 88,
-  stroke = 8,
-  color = "var(--orange)",
-  track = "var(--line)",
-  label,
-}: {
-  value: number;
-  size?: number;
-  stroke?: number;
-  color?: string;
-  track?: string;
-  label?: ReactNode;
-}) {
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  const offset = c - (Math.min(1, value) * c);
+export function StatusDot({ status }: { status: ConservationStatus }) {
+  const map: Record<ConservationStatus, { color: string; label: string }> = {
+    "Least concern": { color: "#6E8A6F", label: "Least concern" },
+    "Near threatened": { color: "#C97A2A", label: "Near threatened" },
+    "Vulnerable": { color: "#B0651E", label: "Vulnerable" },
+    "Endangered": { color: "#B03030", label: "Endangered" },
+  };
+  const s = map[status];
   return (
-    <div className="relative grid place-items-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke={track} strokeWidth={stroke} fill="none" />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          stroke={color}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          fill="none"
-          strokeDasharray={c}
-          strokeDashoffset={offset}
-        />
-      </svg>
-      <div className="absolute inset-0 grid place-items-center text-center">
-        {label}
-      </div>
-    </div>
+    <span className="inline-flex items-center gap-2 text-[11px] text-forest/70">
+      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: s.color }} />
+      {s.label}
+    </span>
   );
 }
