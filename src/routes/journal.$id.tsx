@@ -1,10 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { animals } from "@/lib/park-data";
+import { animals, type Animal } from "@/lib/park-data";
 import { Chip, StatusDot } from "@/components/park/ui";
 import { ChevronLeft, Play, MapPin, Calendar, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/journal/$id")({
-  loader: ({ params }) => {
+  loader: ({ params }): { animal: Animal } => {
     const animal = animals.find((a) => a.id === params.id);
     if (!animal) throw notFound();
     return { animal };
