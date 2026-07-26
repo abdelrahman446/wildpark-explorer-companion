@@ -1,29 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Accessibility,
-  Languages,
   Info,
   Clock,
   Ticket,
   Phone,
-  Leaf,
+  Utensils,
+  Home,
+  Compass,
+  Mail,
+  AlertCircle,
   ChevronRight,
 } from "lucide-react";
 import { ScreenHeader } from "@/components/park/ui";
+import { parkInfo } from "@/lib/park-data";
 
 export const Route = createFileRoute("/more")({
   head: () => ({
     meta: [
-      { title: "More — Wildpark Schorfheide" },
+      { title: "Visit — Wildpark Schorfheide" },
       {
         name: "description",
         content:
-          "Accessibility, languages, opening hours, tickets and visitor information for Wildpark Schorfheide.",
+          "Opening hours, tickets, visitor centre, accessibility, restaurants, carriage tours, virtual tour and contact for Wildpark Schorfheide.",
       },
-      { property: "og:title", content: "More — Wildpark Schorfheide" },
+      { property: "og:title", content: "Visit — Wildpark Schorfheide" },
       {
         property: "og:description",
-        content: "Practical information for your visit.",
+        content: "Practical information for your visit to Wildpark Schorfheide.",
       },
     ],
   }),
@@ -35,27 +39,35 @@ const groups: {
   items: { icon: typeof Info; title: string; subtitle?: string }[];
 }[] = [
   {
-    label: "Experience",
+    label: "Plan your visit",
     items: [
-      { icon: Accessibility, title: "Accessibility", subtitle: "Motion, contrast, text size" },
-      { icon: Languages, title: "Language", subtitle: "English · Deutsch · Français" },
+      { icon: Clock, title: "Opening hours", subtitle: `Daily · ${parkInfo.hours}` },
+      { icon: Ticket, title: "Ticket information", subtitle: "Adults € 11.00 · Reduced € 8.00 · Annual pass" },
+      { icon: Home, title: "Visitor Centre", subtitle: "Information, tickets and the park restaurant" },
+      { icon: Accessibility, title: "Accessibility", subtitle: "Barrier-free · paved trails to every enclosure" },
     ],
   },
   {
-    label: "Visit",
+    label: "On site",
     items: [
-      { icon: Clock, title: "Opening hours", subtitle: "Today · 09:00 – 18:00" },
-      { icon: Ticket, title: "Tickets", subtitle: "Day pass · annual card" },
-      { icon: Info, title: "Visitor information", subtitle: "Getting here, parking, dogs" },
+      { icon: Utensils, title: "Restaurant & café", subtitle: "Visitors' centre and 'Little Village' with field oven" },
+      { icon: Compass, title: "Horse-drawn carriage tours", subtitle: "Adults € 4.00 / 30 min · wheelchair accessible" },
+      { icon: Info, title: "Virtual tour", subtitle: "Walk the enclosures from home" },
     ],
   },
   {
     label: "In case of need",
-    items: [{ icon: Phone, title: "Emergency information" }],
+    items: [
+      { icon: AlertCircle, title: "Emergency information", subtitle: "Europe-wide emergency: 112" },
+    ],
   },
   {
-    label: "About",
-    items: [{ icon: Leaf, title: "About the park", subtitle: "Conservation, partners, credits" }],
+    label: "Contact",
+    items: [
+      { icon: Phone, title: "Telephone", subtitle: parkInfo.phone },
+      { icon: Mail, title: "Email", subtitle: parkInfo.email },
+      { icon: Info, title: "Directions", subtitle: "Groß Schönebeck · Train NE27 from Berlin-Karow" },
+    ],
   },
 ];
 
@@ -63,9 +75,9 @@ function More() {
   return (
     <div className="pb-6">
       <ScreenHeader
-        eyebrow="More"
-        title="Practical & about"
-        subtitle="Everything you might need — quietly out of the way."
+        eyebrow="Visit"
+        title="Plan your day"
+        subtitle="Practical information for your visit to Wildpark Schorfheide."
       />
 
       <div className="mt-4 space-y-8">
@@ -107,7 +119,7 @@ function More() {
       </div>
 
       <p className="mt-10 px-6 text-center text-[11px] italic text-forest/45">
-        Wildpark Schorfheide · Since 1972
+        Wildpark Schorfheide · Biosphere Reserve Schorfheide-Chorin
       </p>
     </div>
   );
