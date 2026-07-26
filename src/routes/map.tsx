@@ -27,8 +27,8 @@ function MapScreen() {
     <div className="pb-6">
       <ScreenHeader
         eyebrow="Park map"
-        title="Find your way, gently"
-        subtitle="The illustrated map complements the signposts along the trails."
+        title="7 km of walking trails"
+        subtitle="Enclosures, playgrounds, picnic spots and the visitors' centre — all reachable on paved paths."
       />
 
       {/* Search */}
@@ -85,7 +85,7 @@ function MapScreen() {
             Accessible routes
           </p>
           <p className="mt-2 text-[13px] text-forest/70 leading-relaxed">
-            Two of the three main loops are step-free and stroller-friendly. Look for the paved path near the north gate.
+            The park is designed barrier-free. Paved trails lead to every enclosure and are suitable for wheelchairs and strollers. Horse-drawn carriage tours are also wheelchair accessible.
           </p>
         </div>
       </section>

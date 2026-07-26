@@ -12,7 +12,7 @@ const tabs: Tab[] = [
   { to: "/map", label: "Map", icon: Map },
   { to: "/scanner", label: "Scan", icon: ScanLine },
   { to: "/journal", label: "Journal", icon: BookOpen },
-  { to: "/more", label: "More", icon: MoreHorizontal },
+  { to: "/more", label: "Visit", icon: MoreHorizontal },
 ];
 
 export function BottomNav() {
