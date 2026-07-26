@@ -31,7 +31,7 @@ function Discover() {
       <ScreenHeader
         eyebrow="Wildpark Schorfheide"
         title="Today in the Wildpark"
-        subtitle="Three exhibitions are open. The Wildpark is quiet — perfect for observation."
+        subtitle="Feedings, presentations and seasonal events across the 7 km trail network."
       />
 
       {/* Featured animal — cinematic hero */}
@@ -126,9 +126,9 @@ function Discover() {
         </div>
       </section>
 
-      {/* Educational highlights — animal thumbs */}
+      {/* Featured animals of the park */}
       <section className="mt-10">
-        <SectionLabel>Current exhibitions</SectionLabel>
+        <SectionLabel>Featured animals</SectionLabel>
         <div className="mt-3 pl-6 flex gap-3 overflow-x-auto no-scrollbar pr-4">
           {animals.map((a) => (
             <Link
@@ -158,6 +158,32 @@ function Discover() {
         </div>
       </section>
 
+      {/* Seasonal events */}
+      <section className="mt-10">
+        <SectionLabel>Seasonal events</SectionLabel>
+        <div className="mt-3 mx-6 rounded-[22px] border border-line bg-white overflow-hidden">
+          {seasonalEvents.map((e, i) => (
+            <div
+              key={e.id}
+              className={`px-5 py-4 ${i > 0 ? "border-t border-line" : ""}`}
+            >
+              <div className="flex items-baseline justify-between gap-4">
+                <p className="text-[14px] text-forest font-medium">{e.title}</p>
+                <p className="inline-flex items-center gap-1.5 text-[11px] text-wood font-medium">
+                  <Calendar className="h-3 w-3" /> {e.date}
+                </p>
+              </div>
+              <p className="mt-1 text-[12px] text-forest/55">
+                {e.time} · {e.place}
+              </p>
+              <p className="mt-2 text-[12px] text-forest/70 leading-relaxed">
+                {e.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Upcoming feedings */}
       <section className="mt-10">
         <SectionLabel>Upcoming feeding sessions</SectionLabel>
@@ -179,14 +205,14 @@ function Discover() {
         </div>
       </section>
 
-      {/* Field notes footer */}
+      {/* Field journal footer */}
       <section className="mt-10 px-6">
         <div className="rounded-[24px] bg-forest text-white p-6">
           <p className="text-[10px] uppercase tracking-[0.24em] text-white/60">
             Your field journal
           </p>
           <p className="mt-3 font-display text-[22px] leading-tight">
-            Two animals recorded. The bison meadow is still ahead.
+            Two animals recorded. The wisent meadow is still ahead.
           </p>
           <Link
             to="/journal"

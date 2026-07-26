@@ -51,8 +51,8 @@ function Scanner() {
           Point at a signpost QR
         </h1>
         <p className="mt-2 text-[13px] text-white/70 leading-relaxed max-w-[280px] mx-auto">
-          Each code reveals the story of the animal in front of you — habitat,
-          behaviour and how to observe it well.
+          Each code opens the story of the animal in front of you — and saves it
+          to your personal field journal.
         </p>
       </div>
 
