@@ -30,8 +30,8 @@ function Journal() {
     <div className="pb-6">
       <ScreenHeader
         eyebrow="Field journal"
-        title="Your quiet record"
-        subtitle="A journal built from what you have seen — not points, not levels."
+        title="Your Wildpark record"
+        subtitle="Every animal you scan is saved here — with date, location and species information."
       />
 
       {/* Summary */}
