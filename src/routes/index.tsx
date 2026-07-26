@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Clock, MapPin } from "lucide-react";
-import { animals, feedingSessions, parkNotices, recommendedTrail } from "@/lib/park-data";
+import { ArrowUpRight, Clock, MapPin, Calendar } from "lucide-react";
+import { animals, feedingSessions, parkNotices, recommendedTrail, seasonalEvents } from "@/lib/park-data";
 import { Chip, ScreenHeader, SectionLabel, StatusDot } from "@/components/park/ui";
 import forestHero from "@/assets/forest-hero.jpg";
 
