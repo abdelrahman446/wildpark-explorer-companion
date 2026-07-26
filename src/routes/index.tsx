@@ -30,8 +30,8 @@ function Discover() {
     <div className="pb-6">
       <ScreenHeader
         eyebrow="Wildpark Schorfheide"
-        title="Today in the forest"
-        subtitle="Three exhibitions are open. The forest is quiet — perfect for observation."
+        title="Today in the Wildpark"
+        subtitle="Three exhibitions are open. The Wildpark is quiet — perfect for observation."
       />
 
       {/* Featured animal — cinematic hero */}
